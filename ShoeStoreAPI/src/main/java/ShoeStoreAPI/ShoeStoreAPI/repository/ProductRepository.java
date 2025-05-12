@@ -29,10 +29,10 @@ public interface ProductRepository extends JpaRepository<Product,Long>{
 	
 	Product findById(int id);
 	
-	@Query(value="select * from `fashionstore`.product where `fashionstore`.product.product_name like %?1% and `fashionstore`.product.category_id= ?2",nativeQuery = true)
+	@Query(value="select * from `shoestore`.product where `shoestore`.product.product_name like %?1% and `shoestore`.product.category_id= ?2",nativeQuery = true)
 	Page<Product> findByProduct_NameAndCategory_idContaining(String name, int category_id, Pageable pageable);
 	
-	@Query(value="select * from `fashionstore`.product where `fashionstore`.product.product_name like %?1%",nativeQuery = true)
+	@Query(value="select * from `shoestore`.product where `shoestore`.product.product_name like %?1%",nativeQuery = true)
 	Page<Product> findByProduct_NameContaining(String name, Pageable pageable);
 	
 	@Query(value="select * from product p where p.category_id = ?1 ORDER BY p.sold DESC LIMIT 4;",nativeQuery = true)

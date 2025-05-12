@@ -16,6 +16,6 @@ public interface CartRepository extends JpaRepository<Cart,Integer>{
 	List<Cart> findAllByUser_id(String user_id);
 	
 	
-	@Query(value="select product_id from fashionstore.cart where id = ?",nativeQuery = true)
+	@Query(value="select product_id from shoestore.cart where id = ?",nativeQuery = true)
 	int findProductByCart_id(int cart_id);
 }
