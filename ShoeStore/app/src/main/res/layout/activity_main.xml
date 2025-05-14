@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ECEBE6"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
+    android:background="@drawable/gradient_background"
     tools:context=".Activity.MainActivity">
 
     <ScrollView
@@ -31,8 +29,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="32dp"
-                    android:text="See All"
-                    android:textColor="#FF3D00"
+                    android:text=""
+                    android:textColor="#007bff"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/tvNewProducts"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -69,7 +67,7 @@
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="32dp"
                     android:text="Hi Leonardo"
-                    android:textColor="#ff3d00"
+                    android:textColor="#007bff"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
@@ -81,8 +79,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="Search and order"
-                    android:textColor="#000000"
-                    android:textSize="20sp"
+                    android:textColor="#666666"
+                    android:textSize="18sp"
+                    android:textStyle="italic"
                     app:layout_constraintStart_toStartOf="@+id/tvHiName"
                     app:layout_constraintTop_toBottomOf="@+id/tvHiName" />
 
@@ -90,6 +89,7 @@
                     android:id="@+id/ivSearch"
                     android:layout_width="45dp"
                     android:layout_height="45dp"
+                    android:contentDescription="Search icon"
                     app:layout_constraintBottom_toBottomOf="@+id/etSearch"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/etSearch"
@@ -101,22 +101,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="32dp"
-                    android:text="See All"
-                    android:textColor="#FF3D00"
+                    android:text=""
+                    android:textColor="#007bff"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/tvBestSeller"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toEndOf="@+id/tvBestSeller"
-                    app:layout_constraintTop_toTopOf="@+id/tvBestSeller"
-                    app:layout_constraintVertical_bias="1.0" />
+                    app:layout_constraintTop_toTopOf="@+id/tvBestSeller" />
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/ivAvatar"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_marginEnd="32dp"
-                    android:src="@drawable/icon_app"
+                    android:contentDescription="User avatar"
+                    android:src="@drawable/img"
                     app:layout_constraintBottom_toBottomOf="@+id/textView6"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tvHiName" />
@@ -124,18 +122,21 @@
                 <EditText
                     android:id="@+id/etSearch"
                     android:layout_width="310dp"
-                    android:layout_height="50dp"
+                    android:layout_height="60dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="20dp"
-                    android:background="@drawable/search_edt_background"
-                    android:drawableStart="@drawable/search"
-                    android:drawablePadding="15dp"
+                    android:background="@drawable/edittext_gradient_background"
+                    android:elevation="5dp"
                     android:ems="10"
                     android:hint="Search"
-                    android:inputType="textPersonName"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="10dp"
-                    android:textStyle="italic"
+                    android:inputType="text"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
+                    android:textColor="#333333"
+                    android:textColorHint="#666666"
+                    android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
@@ -159,7 +160,6 @@
                     android:paddingStart="22dp"
                     android:paddingEnd="22dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="@+id/etSearch"
                     app:layout_constraintTop_toBottomOf="@+id/tvBestSeller" />
 
@@ -172,7 +172,6 @@
                     android:paddingStart="22dp"
                     android:paddingEnd="22dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
@@ -184,7 +183,6 @@
                     android:paddingStart="22dp"
                     android:paddingEnd="22dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvNewProducts" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -204,7 +202,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:backgroundTint="#f6f6f6"/>
+            android:backgroundTint="#f6f6f6"
+            app:elevation="5dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -218,6 +217,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:contentDescription="Home"
                 app:srcCompat="@drawable/icon_home_selected" />
 
             <ImageView
@@ -225,6 +225,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:contentDescription="Cart"
                 app:srcCompat="@drawable/icon_cart" />
 
             <ImageView
@@ -232,6 +233,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:contentDescription="History"
                 app:srcCompat="@drawable/icon_history" />
 
             <ImageView
@@ -239,9 +241,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:contentDescription="User profile"
                 app:srcCompat="@drawable/icon_user" />
         </LinearLayout>
-
-
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
