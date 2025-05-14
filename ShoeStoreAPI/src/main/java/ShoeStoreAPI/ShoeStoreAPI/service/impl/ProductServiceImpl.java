@@ -26,7 +26,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public Product saveProduct(Product product) {
-		// TODO Auto-generated method stub
+		// Đảm bảo không lưu productImages ở đây
 		return productRepository.save(product);
 	}
 
@@ -45,7 +45,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void deleteProductById(int id) {
 		// TODO Auto-generated method stub
-		productRepository.deleteById((long) id);
+		productRepository.deleteById((int) id);
 	}
 
 	@Override
@@ -85,5 +85,8 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product> findTop4ProductByCategory_id(int id) {
 		return productRepository.findTop4ProductByCategory_id(id);
 	}
-	
+	@Override
+	public List<Product> getProductByCategoryID(int id){
+		return productRepository.findByCategory_Id(id);
+	}
 }

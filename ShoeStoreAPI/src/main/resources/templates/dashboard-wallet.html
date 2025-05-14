@@ -1,213 +1,277 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  
-<!-- Basic Page Needs
-================================================== -->
-<title>Admin Page</title>
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Admin Wallet</title>
 
-<!-- CSS
-================================================== -->
-<link rel="stylesheet" href="/listeo/css/style.css">
-<link rel="stylesheet" href="/listeo/css/main-color.css" id="colors">
-<link rel="icon" href="/img/logo-3.png">
+	<!-- Bootstrap + FontAwesome -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+	<link rel="icon" href="/images/img.png" />
+
+	<style>
+		/* Body as flex container */
+		body {
+			background-color: #f4f4f4;
+			color: #333;
+			margin: 0;
+			display: flex;
+			min-height: 100vh;
+			box-sizing: border-box;
+		}
+
+		/* Sidebar styling */
+		.sidebar {
+			background-color: #ffffff;
+			width: 250px;
+			min-height: 100vh;
+			box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+			flex-shrink: 0;
+			z-index: 1000;
+		}
+
+		.sidebar a {
+			color: #333;
+			text-decoration: none;
+			display: block;
+			padding: 12px 20px;
+			border-bottom: 1px solid #eee;
+			transition: background-color 0.2s;
+		}
+
+		.sidebar a:hover {
+			background-color: #f0f0f0;
+		}
+
+		.sidebar a.active {
+			background-color: #e9ecef;
+			font-weight: bold;
+		}
+
+		.sidebar .logo {
+			padding: 5px 50px;
+			font-weight: bold;
+			font-size: 20px;
+			display: flex;
+			align-items: center;
+		}
+
+		.sidebar .logo img {
+			max-width: 100px;
+		}
+
+		/* Main content styling */
+		#mainContent {
+			flex-grow: 1;
+			display: flex;
+			flex-direction: column;
+			background-color: #f4f4f4;
+		}
+
+		/* Topbar styling */
+		.topbar {
+			background-color: #ffffff;
+			padding: 10px 20px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			border-bottom: 1px solid #ddd;
+			width: 100%;
+			box-sizing: border-box;
+		}
+
+		.topbar .btn {
+			border-color: #ccc;
+		}
+
+		.topbar .btn:hover {
+			background-color: #eee;
+		}
+
+		/* Wallet card styling */
+		.wallet-card {
+			background-color: #ffffff;
+			border-radius: 15px;
+			padding: 20px;
+			text-align: center;
+			color: #333;
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+			transition: transform 0.2s ease;
+			min-height: 150px;
+		}
+
+		.wallet-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.wallet-card i {
+			font-size: 32px;
+			margin-bottom: 10px;
+			color: #007bff;
+		}
+
+		.wallet-card h4 {
+			margin: 10px 0;
+			font-size: 24px;
+		}
+
+		.wallet-card span {
+			font-size: 14px;
+			color: #666;
+		}
+
+		/* Container styling */
+		.container {
+			max-width: 100%;
+			padding: 0 15px;
+			margin: 0 auto;
+		}
+
+		/* Breadcrumbs */
+		.breadcrumbs {
+			margin-bottom: 20px;
+		}
+
+		.breadcrumbs ul {
+			list-style: none;
+			padding: 0;
+			display: flex;
+			gap: 10px;
+		}
+
+		.breadcrumbs a {
+			color: #007bff;
+			text-decoration: none;
+		}
+
+		.breadcrumbs a:hover {
+			text-decoration: underline;
+		}
+
+		/* Mobile-specific styles */
+		@media (max-width: 768px) {
+			.sidebar {
+				position: fixed;
+				top: 0;
+				left: -250px;
+				width: 250px;
+				transition: left 0.3s ease-in-out;
+			}
+
+			.sidebar.show {
+				left: 0;
+			}
+
+			.overlay {
+				position: fixed;
+				top: 0;
+				left: 0;
+				background: rgba(0, 0, 0, 0.5);
+				width: 100%;
+				height: 100%;
+				z-index: 999;
+				display: none;
+			}
+
+			.overlay.show {
+				display: block;
+			}
+
+			#mainContent {
+				margin-left: 0;
+				width: 100%;
+			}
+		}
+
+		/* Desktop-specific styles */
+		@media (min-width: 769px) {
+			.sidebar {
+				position: fixed;
+				top: 0;
+				left: 0;
+			}
+
+			#mainContent {
+				margin-left: 250px;
+				width: calc(100% - 250px);
+			}
+
+			.container {
+				max-width: 1200px;
+			}
+		}
+	</style>
 </head>
 
 <body>
+<!-- Mobile Menu Overlay -->
+<div class="overlay" id="menuOverlay" onclick="toggleMenu()"></div>
 
-	<!-- Wrapper -->
-	<div id="wrapper">
-
-		<!-- Header Container
-================================================== -->
-		<header id="header-container" class="fixed fullwidth dashboard">
-
-			<!-- Header -->
-			<div id="header" class="not-sticky">
-				<div class="container">
-
-					<!-- Left Side Content -->
-					<div class="left-side">
-
-						<!-- Logo -->
-						<div id="logo">
-							<a th:href="@{/redirect}"><img src="images/logo.png" alt=""></a>
-							<a th:href="@{/redirect}" class="dashboard-logo"><img
-								src="images/logo.png" alt=""></a>
-						</div>
-
-						<!-- Mobile Navigation -->
-						<div class="mmenu-trigger">
-							<button class="hamburger hamburger--collapse" type="button">
-								<span class="hamburger-box"> <span
-									class="hamburger-inner"></span>
-								</span>
-							</button>
-						</div>
-					</div>
-					<!-- Left Side Content / End -->
-
-					<!-- Right Side Content / End -->
-					<div class="right-side">
-						<!-- Header Widget -->
-						<div class="header-widget">
-
-							<!-- User Menu -->
-							<div class="user-menu">
-								<div class="user-name">
-									<span><img th:src="${session.admin.avatar}" alt=""></span>My
-									Account
-								</div>
-								<ul>
-									<li><a th:href="@{/dashboard}"><i
-											class="sl sl-icon-settings"></i> Dashboard</a></li>
-									<li><a th:href="@{/dashboard-orders}"><i
-											class="sl sl-icon-envelope-open"></i> Orders</a></li>
-									<li><a th:href="@{/dashboard-wallet}"><i
-											class="fa fa-calendar-check-o"></i> Wallet</a></li>
-									<li><a th:href="@{/logout-admin}"><i
-											class="sl sl-icon-power"></i> Logout</a></li>
-								</ul>
-							</div>
-						</div>
-						<!-- Header Widget / End -->
-					</div>
-					<!-- Right Side Content / End -->
-
-				</div>
-			</div>
-			<!-- Header / End -->
-
-		</header>
-		<div class="clearfix"></div>
-		<!-- Header Container / End -->
-
-
-		<!-- Dashboard -->
-		<div id="dashboard">
-
-			<!-- Navigation
-	================================================== -->
-
-			<!-- Responsive Navigation Trigger -->
-			<a href="#" class="dashboard-responsive-nav-trigger"><i
-				class="fa fa-reorder"></i> Dashboard Navigation</a>
-			<div class="dashboard-nav">
-				<div class="dashboard-nav-inner">
-
-					<ul data-submenu-title="Main">
-						<li><a th:href="@{/dashboard}"><i
-								class="sl sl-icon-settings"></i> Dashboard</a></li>
-						<li><a th:href="@{/dashboard-orders}"><i
-								class="fa fa-calendar-check-o"></i> Orders</a></li>
-						<li class="active"><a th:href="@{/dashboard-wallet}"><i
-								class="sl sl-icon-wallet"></i> Wallet</a></li>
-						<li><a th:href="@{/logout-admin}"><i
-								class="sl sl-icon-power"></i> Logout</a></li>
-					</ul>
-				</div>
-			</div>
-			<!-- Navigation / End -->
-
-
-			<!-- Content
-	================================================== -->
-			<div class="dashboard-content" style="margin-bottom: 70px;">
-
-				<!-- Titlebar -->
-				<div id="titlebar">
-					<div class="row">
-						<div class="col-md-12">
-							<h2>Wallet</h2>
-							<!-- Breadcrumbs -->
-							<nav id="breadcrumbs">
-								<ul>
-									<li><a href="#">Home</a></li>
-									<li>Dashboard</li>
-									<li>Wallet</li>
-								</ul>
-							</nav>
-						</div>
-					</div>
-				</div>
-
-				<!-- Content -->
-				<div class="row">
-
-					<!-- Item -->
-					<div class="col-lg-4 col-md-6">
-						<div class="dashboard-stat color-1">
-							<div class="dashboard-stat-content wallet-totals">
-								<h4
-									th:text="${#numbers.formatDecimal(TotalMomo, 0, 'COMMA', 0, 'POINT')}"></h4>
-								<span>Payment with ZaloPay<strong class="wallet-currency">VNĐ</strong></span>
-							</div>
-							<div class="dashboard-stat-icon">
-								<i class="im im-icon-Money-2"></i>
-							</div>
-						</div>
-					</div>
-					<!-- Item -->
-					<div class="col-lg-4 col-md-6">
-						<div class="dashboard-stat color-3">
-							<div class="dashboard-stat-content wallet-totals">
-								<h4
-									th:text="${#numbers.formatDecimal(TotalDelivery, 0, 'COMMA', 0, 'POINT')}"></h4>
-								<span>Payment on delivery<strong class="wallet-currency">VNĐ</strong></span>
-							</div>
-							<div class="dashboard-stat-icon">
-								<i class="im im-icon-Money-Bag"></i>
-							</div>
-						</div>
-					</div>
-
-					<!-- Item -->
-					<div class="col-lg-4 col-md-6">
-						<div class="dashboard-stat color-2">
-							<div class="dashboard-stat-content">
-								<h4
-									th:text="${#numbers.formatDecimal(TotalOrder, 0, 'COMMA', 0, 'POINT')}"></h4>
-								<span>Total Orders</span>
-							</div>
-							<div class="dashboard-stat-icon">
-								<i class="im im-icon-Shopping-Cart"></i>
-							</div>
-						</div>
-					</div>
-
-				</div>
-
-			</div>
-			<!-- Content / End -->
-
-
-		</div>
-		<!-- Dashboard / End -->
-
-
+<!-- Sidebar -->
+<nav class="sidebar" id="sidebarMenu">
+	<div class="logo">
+		<a th:href="@{/redirect}"><img src="/images/img.png" alt="Logo" /></a>
 	</div>
-	<!-- Wrapper / End -->
+	<a th:href="@{/dashboard}"><i class="fas fa-tachometer-alt me-2"></i> Dashboard</a>
+	<a th:href="@{/dashboard-orders}"><i class="fas fa-shopping-cart me-2"></i> Orders</a>
+	<a th:href="@{/dashboard-wallet}" class="active"><i class="fas fa-wallet me-2"></i> Wallet</a>
+	<a th:href="@{/product-manager}"><i class="fas fa-box-open me-2"></i> Product Manager</a>
+	<a th:href="@{/logout-admin}"><i class="fas fa-sign-out-alt me-2"></i> Logout</a>
+</nav>
 
+<!-- Main Content -->
+<div class="flex-grow-1" id="mainContent">
+	<!-- Topbar -->
+	<div class="topbar">
+		<button class="btn btn-outline-secondary d-md-none" onclick="toggleMenu()">
+			<i class="fas fa-bars"></i>
+		</button>
+		<div class="d-flex align-items-center gap-2">
+			<img th:src="${session.admin.avatar}" alt="Avatar" width="36" height="36" class="rounded-circle" />
+			<span th:text="${session.admin.user_Name}">Admin</span>
+		</div>
+	</div>
 
-	<!-- Scripts
-================================================== -->
-	<script type="text/javascript" src="scripts/jquery-3.6.0.min.js"></script>
-	<script type="text/javascript"
-		src="scripts/jquery-migrate-3.3.2.min.js"></script>
-	<script type="text/javascript" src="scripts/mmenu.min.js"></script>
-	<script type="text/javascript" src="scripts/chosen.min.js"></script>
-	<script type="text/javascript" src="scripts/slick.min.js"></script>
-	<script type="text/javascript" src="scripts/rangeslider.min.js"></script>
-	<script type="text/javascript" src="scripts/magnific-popup.min.js"></script>
-	<script type="text/javascript" src="scripts/waypoints.min.js"></script>
-	<script type="text/javascript" src="scripts/counterup.min.js"></script>
-	<script type="text/javascript" src="scripts/jquery-ui.min.js"></script>
-	<script type="text/javascript" src="scripts/tooltips.min.js"></script>
-	<script type="text/javascript" src="scripts/custom.js"></script>
+	<!-- Wallet Content -->
+	<div class="container mt-4">
+		<h3 class="mb-4">Wallet</h3>
+		<!-- Wallet Statistics -->
+		<div class="row g-4">
+			<div class="col-md-4 col-sm-6 col-12">
+				<div class="wallet-card">
+					<i class="fas fa-mobile-alt"></i>
+					<h4 th:text="${#numbers.formatDecimal(TotalMomo, 0, 'COMMA', 0, 'POINT')}">0</h4>
+					<span>ZaloPay Payments <strong>VNĐ</strong></span>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-6 col-12">
+				<div class="wallet-card">
+					<i class="fas fa-truck"></i>
+					<h4 th:text="${#numbers.formatDecimal(TotalDelivery, 0, 'COMMA', 0, 'POINT')}">0</h4>
+					<span>Payment on Delivery <strong>VNĐ</strong></span>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-6 col-12">
+				<div class="wallet-card">
+					<i class="fas fa-shopping-cart"></i>
+					<h4 th:text="${#numbers.formatDecimal(TotalOrder, 0, 'COMMA', 0, 'POINT')}">0</h4>
+					<span>Total Orders</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
+<!-- JS for menu toggle -->
+<script>
+	function toggleMenu() {
+		document.getElementById('sidebarMenu').classList.toggle('show');
+		document.getElementById('menuOverlay').classList.toggle('show');
+	}
+</script>
 
+<!-- Bootstrap Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

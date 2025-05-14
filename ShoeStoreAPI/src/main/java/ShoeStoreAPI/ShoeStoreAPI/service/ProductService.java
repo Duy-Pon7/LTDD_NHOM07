@@ -9,7 +9,7 @@ import ShoeStoreAPI.ShoeStoreAPI.entity.Product;
 
 public interface ProductService {
 	List<Product> getAllProduct();
-	
+
 	Product saveProduct(Product product);
 
 	Product getProductById(int id);
@@ -17,11 +17,11 @@ public interface ProductService {
 	Product updateProduct(Product product);
 
 	void deleteProductById(int id);
-	
+
 	List<Product> findByProduct_NameContaining(String name);
-	
+
 	List<Product> findTop12ProductBestSellers();
-	
+
 	List<Product> findTop12ProductNewArrivals();
 
 	Page<Product> findAll(Pageable pageable);
@@ -31,8 +31,9 @@ public interface ProductService {
 	Page<Product> findByProduct_NameAndCategory_idContaining(String name, int category_id, Pageable pageable);
 
 	List<Product> findTop4ProductByCategory_id(int name);
-	
-	
-	
+
+	List<Product> getProductByCategoryID(int id);
+
+
 //	Product getProductByCart_id(int cart_id);
 }

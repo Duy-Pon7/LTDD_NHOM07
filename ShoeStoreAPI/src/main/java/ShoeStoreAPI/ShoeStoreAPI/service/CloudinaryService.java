@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 @Service
@@ -20,14 +21,21 @@ public class CloudinaryService {
     public String uploadFile(MultipartFile file) {
         try {
             File uploadedFile = convertMultiPartToFile(file);
+            
+            // Tạo Map để chỉ định thư mục 'ShoeStore'
+            Map<String, Object> uploadParams = new HashMap<>();
+            uploadParams.put("folder", "Avatar");
+            
             @SuppressWarnings("rawtypes")
-			Map uploadResult = cloudinaryConfig.uploader().upload(uploadedFile, ObjectUtils.emptyMap());
+            Map uploadResult = cloudinaryConfig.uploader().upload(uploadedFile, uploadParams);
+            
             uploadedFile.delete();
-            return  uploadResult.get("url").toString();
+            return uploadResult.get("url").toString();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
+
 
     private File convertMultiPartToFile(MultipartFile file) throws IOException {
         File convFile = new File(file.getOriginalFilename());
@@ -35,5 +43,23 @@ public class CloudinaryService {
         fos.write(file.getBytes());
         fos.close();
         return convFile;
+    }
+
+    public String uploadFileProduct(MultipartFile file) {
+        try {
+            File uploadedFile = convertMultiPartToFile(file);
+
+            // Tạo Map để chỉ định thư mục 'ShoeStore'
+            Map<String, Object> uploadParams = new HashMap<>();
+            uploadParams.put("folder", "ShoeStore");
+
+            @SuppressWarnings("rawtypes")
+            Map uploadResult = cloudinaryConfig.uploader().upload(uploadedFile, uploadParams);
+
+            uploadedFile.delete();
+            return uploadResult.get("url").toString();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

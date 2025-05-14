@@ -2,10 +2,7 @@ package ShoeStoreAPI.ShoeStoreAPI.controller;
 
 import java.io.IOException;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -14,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -222,4 +221,61 @@ public class AdminController {
 		return "redirect:" + referer;
 	}
 
+	@PostMapping("/remove")
+	public ResponseEntity<?> removeProduct(int id) {
+		try {
+			productService.deleteProductById(id);
+
+			return ResponseEntity.ok(Map.of("success", true, "message", "Product added successfully"));
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body(Map.of("success", false, "message", "Failed to add product"));
+		}
+	}
+
+	@GetMapping("/product-manager")
+	public String showProductList(Model model) {
+		List<Product> productList = productService.getAllProduct();
+		List<Category> categoryList = categoryService.findAll();
+		model.addAttribute("products", productList);
+		model.addAttribute("categories", categoryList);
+		return "product-manager"; // phải có file templates/products.html
+	}
+
+	@GetMapping("/delete-product/{id}")
+	public String DeleteProduct(@PathVariable int id, Model model, HttpServletRequest request) throws Exception {
+		User admin = (User) session.getAttribute("admin");
+		if (admin == null) {
+			return "redirect:/signin-admin";
+		} else {
+			String referer = request.getHeader("Referer");
+			productService.deleteProductById(id);
+			return "redirect:" + referer;
+		}
+	}
+
+	@PostMapping("/add")
+	public String AddProduct(@RequestParam("images") MultipartFile[] images, Product product, HttpServletRequest request) throws Exception {
+		User admin = (User) session.getAttribute("admin");
+		if (admin == null) {
+			return "redirect:/signin-admin";
+		} else {
+			String referer = request.getHeader("Referer");
+			product.setIs_Active(1);
+			product.setIs_Selling(1);
+			productService.saveProduct(product);
+			List<String> imageUrls = new ArrayList<>();
+			if (images != null && images.length > 0) {
+				for (int i = 0; i < images.length && i < 4; i++) {
+					String url = cloudinaryService.uploadFileProduct(images[i]);
+					imageUrls.add(url);
+					ProductImage productImage = new ProductImage();
+					productImage.setUrl_Image(url);
+					productImage.setProduct(product);
+					productImageService.save(productImage);
+				}
+			}
+			return "redirect:" + referer;
+		}
+	}
 }

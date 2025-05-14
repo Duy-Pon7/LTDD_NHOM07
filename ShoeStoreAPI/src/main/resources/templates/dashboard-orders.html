@@ -1,348 +1,390 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-   
-<!-- Basic Page Needs
-================================================== -->
-<title>Admin Page</title>
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Admin Orders</title>
 
-<!-- CSS
-================================================== -->
-<link rel="stylesheet" href="/listeo/css/style.css">
-<link rel="stylesheet" href="/listeo/css/main-color.css" id="colors">
-<link rel="icon" href="/img/logo-3.png">
+	<!-- Bootstrap + FontAwesome -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+	<link rel="icon" href="/images/img.png" />
+
+	<style>
+		/* Body as flex container */
+		body {
+			background-color: #f4f4f4;
+			color: #333;
+			margin: 0;
+			display: flex;
+			min-height: 100vh;
+			box-sizing: border-box;
+		}
+
+		/* Sidebar styling */
+		.sidebar {
+			background-color: #ffffff;
+			width: 250px;
+			min-height: 100vh;
+			box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+			flex-shrink: 0;
+			z-index: 1000;
+		}
+
+		.sidebar a {
+			color: #333;
+			text-decoration: none;
+			display: block;
+			padding: 12px 20px;
+			border-bottom: 1px solid #eee;
+			transition: background-color 0.2s;
+		}
+
+		.sidebar a:hover {
+			background-color: #f0f0f0;
+		}
+
+		.sidebar a.active {
+			background-color: #e9ecef;
+			font-weight: bold;
+		}
+
+		.sidebar .logo {
+			padding: 5px 50px;
+			font-weight: bold;
+			font-size: 20px;
+			display: flex;
+			align-items: center;
+		}
+
+		.sidebar .logo img {
+			max-width: 100px;
+		}
+
+		/* Main content styling */
+		#mainContent {
+			flex-grow: 1;
+			display: flex;
+			flex-direction: column;
+			background-color: #f4f4f4;
+		}
+
+		/* Topbar styling */
+		.topbar {
+			background-color: #ffffff;
+			padding: 10px 20px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			border-bottom: 1px solid #ddd;
+			width: 100%;
+			box-sizing: border-box;
+		}
+
+		.topbar .btn {
+			border-color: #ccc;
+		}
+
+		.topbar .btn:hover {
+			background-color: #eee;
+		}
+
+		/* Order card styling */
+		.order-card {
+			background-color: #ffffff;
+			border-radius: 15px;
+			padding: 20px;
+			margin-bottom: 20px;
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			min-height: 150px;
+		}
+
+		.order-card img {
+			width: 60px;
+			height: 60px;
+			border-radius: 50%;
+			margin-right: 20px;
+		}
+
+		.order-card .content {
+			flex-grow: 1;
+		}
+
+		.order-card .buttons {
+			margin-left: auto;
+			display: flex;
+			gap: 10px;
+		}
+
+		.order-card .btn {
+			font-size: 14px;
+		}
+
+		/* Container styling */
+		.container {
+			max-width: 100%;
+			padding: 0 15px;
+			margin: 0 auto;
+		}
+
+		/* Breadcrumbs */
+		.breadcrumbs {
+			margin-bottom: 20px;
+		}
+
+		.breadcrumbs ul {
+			list-style: none;
+			padding: 0;
+			display: flex;
+			gap: 10px;
+		}
+
+		.breadcrumbs a {
+			color: #007bff;
+			text-decoration: none;
+		}
+
+		.breadcrumbs a:hover {
+			text-decoration: underline;
+		}
+
+		/* Pagination */
+		.pagination-container {
+			display: flex;
+			justify-content: center;
+			margin-top: 20px;
+		}
+
+		.pagination-container ul {
+			display: flex;
+			gap: 10px;
+			list-style: none;
+			padding: 0;
+		}
+
+		.pagination-container a {
+			padding: 8px 12px;
+			border: 1px solid #ddd;
+			border-radius: 5px;
+			text-decoration: none;
+			color: #333;
+		}
+
+		.pagination-container a.current-page {
+			background-color: #007bff;
+			color: #fff;
+			border-color: #007bff;
+		}
+
+		.pagination-container a:hover {
+			background-color: #f0f0f0;
+		}
+
+		/* Modal for Send Message */
+		.modal-content {
+			border-radius: 15px;
+		}
+
+		.modal-header {
+			background-color: #f8f8f8;
+			border-bottom: 1px solid #ddd;
+		}
+
+		/* Mobile-specific styles */
+		@media (max-width: 768px) {
+			.sidebar {
+				position: fixed;
+				top: 0;
+				left: -250px;
+				width: 250px;
+				transition: left 0.3s ease-in-out;
+			}
+
+			.sidebar.show {
+				left: 0;
+			}
+
+			.overlay {
+				position: fixed;
+				top: 0;
+				left: 0;
+				background: rgba(0, 0, 0, 0.5);
+				width: 100%;
+				height: 100%;
+				z-index: 999;
+				display: none;
+			}
+
+			.overlay.show {
+				display: block;
+			}
+
+			#mainContent {
+				margin-left: 0;
+				width: 100%;
+			}
+
+			.order-card {
+				flex-direction: column;
+				align-items: flex-start;
+			}
+
+			.order-card img {
+				margin-bottom: 10px;
+			}
+
+			.order-card .buttons {
+				margin-left: 0;
+				margin-top: 10px;
+				width: 100%;
+				justify-content: flex-end;
+			}
+		}
+
+		/* Desktop-specific styles */
+		@media (min-width: 769px) {
+			.sidebar {
+				position: fixed;
+				top: 0;
+				left: 0;
+			}
+
+			#mainContent {
+				margin-left: 250px;
+				width: calc(100% - 250px);
+			}
+
+			.container {
+				max-width: 1200px;
+			}
+		}
+	</style>
 </head>
 
 <body>
+<!-- Mobile Menu Overlay -->
+<div class="overlay" id="menuOverlay" onclick="toggleMenu()"></div>
 
-	<!-- Wrapper -->
-	<div id="wrapper">
+<!-- Sidebar -->
+<nav class="sidebar" id="sidebarMenu">
+	<div class="logo">
+		<a th:href="@{/redirect}"><img src="/images/img.png" alt="Logo" /></a>
+	</div>
+	<a th:href="@{/dashboard}"><i class="fas fa-tachometer-alt me-2"></i> Dashboard</a>
+	<a th:href="@{/dashboard-orders}" class="active"><i class="fas fa-shopping-cart me-2"></i> Orders</a>
+	<a th:href="@{/dashboard-wallet}"><i class="fas fa-wallet me-2"></i> Wallet</a>
+	<a th:href="@{/product-manager}"><i class="fas fa-box-open me-2"></i> Product Manager</a>
+	<a th:href="@{/logout-admin}"><i class="fas fa-sign-out-alt me-2"></i> Logout</a>
+</nav>
 
-		<!-- Header Container
-================================================== -->
-		<header id="header-container" class="fixed fullwidth dashboard">
+<!-- Main Content -->
+<div class="flex-grow-1" id="mainContent">
+	<!-- Topbar -->
+	<div class="topbar">
+		<button class="btn btn-outline-secondary d-md-none" onclick="toggleMenu()">
+			<i class="fas fa-bars"></i>
+		</button>
+		<div class="d-flex align-items-center gap-2">
+			<img th:src="${session.admin.avatar}" alt="Avatar" width="36" height="36" class="rounded-circle" />
+			<span th:text="${session.admin.user_Name}">Admin</span>
+		</div>
+	</div>
 
-			<!-- Header -->
-			<div id="header" class="not-sticky">
-				<div class="container">
-
-					<!-- Left Side Content -->
-					<div class="left-side">
-
-						<!-- Logo -->
-						<div id="logo">
-							<a th:href="@{/redirect}"><img src="/images/logo2.png" alt=""></a>
-							<a th:href="@{/redirect}" class="dashboard-logo"><img
-								src="/images/logo2.png" alt=""></a>
+	<!-- Orders Content -->
+	<div class="container mt-4">
+		<h3 class="mb-4">Orders</h3>
+		<!-- Orders List -->
+		<div class="orders-list">
+			<th:block th:each="y : ${pageOrder.content}">
+				<div class="order-card">
+					<img th:src="${y.user.avatar}" alt="User Avatar" />
+					<div class="content">
+						<h4 th:if="${y.order_Item.size() == 1}" th:text="${y.order_Item[0].product.product_Name}"></h4>
+						<h4 th:if="${y.order_Item.size() > 1}" th:text="${y.order_Item[0].product.product_Name} + ' (And ' + ${y.order_Item.size() - 1} + ' more ...)'"></h4>
+						<div class="inner-booking-list">
+							<strong>Purchase Date:</strong>
+							<span th:text="${#dates.format(y.booking_Date, 'dd/MM/yyyy')}"></span>
 						</div>
-
-						<!-- Mobile Navigation -->
-						<div class="mmenu-trigger">
-							<button class="hamburger hamburger--collapse" type="button">
-								<span class="hamburger-box"> <span
-									class="hamburger-inner"></span>
-								</span>
-							</button>
+						<div class="inner-booking-list">
+							<strong>Note:</strong>
+							<span th:text="${y.note}"></span>
 						</div>
-
-
-					</div>
-					<!-- Left Side Content / End -->
-
-					<!-- Right Side Content / End -->
-					<div class="right-side">
-						<!-- Header Widget -->
-						<div class="header-widget">
-
-							<!-- User Menu -->
-							<div class="user-menu">
-								<div class="user-name">
-									<span><img th:src="${session.admin.avatar}" alt=""></span>My
-									Account
-								</div>
-								<ul>
-									<li><a th:href="@{/dashboard}"><i
-											class="sl sl-icon-settings"></i> Dashboard</a></li>
-									<li><a th:href="@{/dashboard-orders}"><i
-											class="sl sl-icon-envelope-open"></i> Orders</a></li>
-									<li><a th:href="@{/dashboard-wallet}"><i
-											class="fa fa-calendar-check-o"></i> Wallet</a></li>
-									<li><a th:href="@{/logout-admin}"><i
-											class="sl sl-icon-power"></i> Logout</a></li>
-								</ul>
-							</div>
-
+						<div class="inner-booking-list">
+							<strong>Price:</strong>
+							<span th:text="${#numbers.formatDecimal(y.total, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></span>
 						</div>
-						<!-- Header Widget / End -->
-					</div>
-					<!-- Right Side Content / End -->
-
-				</div>
-			</div>
-			<!-- Header / End -->
-
-		</header>
-		<div class="clearfix"></div>
-		<!-- Header Container / End -->
-
-
-		<!-- Dashboard -->
-		<div id="dashboard">
-
-			<!-- Navigation
-	================================================== -->
-
-			<!-- Responsive Navigation Trigger -->
-			<a href="#" class="dashboard-responsive-nav-trigger"><i
-				class="fa fa-reorder"></i> Dashboard Navigation</a>
-			<div class="dashboard-nav">
-				<div class="dashboard-nav-inner">
-
-					<ul data-submenu-title="Main">
-						<li><a th:href="@{/dashboard}"><i
-								class="sl sl-icon-settings"></i> Dashboard</a></li>
-						<li class="active"><a th:href="@{/dashboard-orders}"><i
-								class="fa fa-calendar-check-o"></i> Orders</a></li>
-						<li><a th:href="@{/dashboard-wallet}"><i
-								class="sl sl-icon-wallet"></i> Wallet</a></li>
-						<li><a th:href="@{/logout-admin}"><i
-								class="sl sl-icon-power"></i> Logout</a></li>
-					</ul>
-				</div>
-			</div>
-			<!-- Navigation / End -->
-
-			<!-- Content
-	================================================== -->
-			<div class="dashboard-content">
-
-				<!-- Titlebar -->
-				<div id="titlebar">
-					<div class="row">
-						<div class="col-md-12">
-							<h2>Bookings</h2>
-							<!-- Breadcrumbs -->
-							<nav id="breadcrumbs">
-								<ul>
-									<li><a href="#">Home</a></li>
-									<li><a href="#">Dashboard</a></li>
-									<li>Orders</li>
-								</ul>
-							</nav>
-						</div>
-					</div>
-				</div>
-
-				<div class="row">
-
-					<!-- Listings -->
-					<div class="col-lg-12 col-md-12">
-						<div class="dashboard-list-box margin-top-0">
-
-
-
-							<h4>Booking Requests</h4>
+						<div class="inner-booking-list">
+							<strong>Client:</strong>
 							<ul>
-								<th:block th:each="y : ${pageOrder.content}">
-									<li class="pending-booking">
-										<div class="list-box-listing bookings">
-											<div class="list-box-listing-img">
-												<img th:src="${y.user.avatar}" alt="">
-											</div>
-											<div class="list-box-listing-content">
-												<div class="inner">
-													<div></div>
-													<h3 th:if="${y.order_Item.size() == 1}"
-														th:text="${y.order_Item[0].product.product_Name}"></h3>
-													<h3 th:if="${y.order_Item.size() > 1}"
-														th:text="${y.order_Item[0].product.product_Name} + '( And '+ ${y.order_Item.size() - 1} + ' more ...)'"></h3>
-													<div class="inner-booking-list">
-														<h5>Purchase Date:</h5>
-														<ul class="booking-list">
-															<li class="highlighted"
-																th:text="${#dates.format(y.booking_Date, 'dd/MM/yyyy')}"></li>
-														</ul>
-													</div>
-
-													<div class="inner-booking-list">
-														<h5>Note:</h5>
-														<ul class="booking-list">
-															<li class="highlighted" th:text="${y.note}"></li>
-														</ul>
-													</div>
-
-													<div class="inner-booking-list">
-														<h5>Price:</h5>
-														<ul class="booking-list">
-															<li class="highlighted"
-																th:text="${#numbers.formatDecimal(y.total, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></li>
-														</ul>
-													</div>
-
-													<div class="inner-booking-list">
-														<h5>Client:</h5>
-														<ul class="booking-list">
-															<li th:text="${y.user.user_Name}"></li>
-															<li th:text="${y.user.email}"></li>
-															<li th:text="${y.user.phone_Number}"></li>
-														</ul>
-													</div>
-
-													<!-- Reply to review popup -->
-													<div id="small-dialog" class="zoom-anim-dialog mfp-hide">
-														<div class="small-dialog-header">
-															<h3>Send Message</h3>
-														</div>
-														<div class="message-reply margin-top-0">
-															<form action="/send-message" method="post">
-																<textarea name="message" cols="40" rows="3"
-																	th:placeholder="'Your Message to ' +${y.user.user_Name}"></textarea>
-																<input name="email" th:value="${y.user.email}">
-																<button type="submit" class="button">Send</button>
-															</form>
-														</div>
-													</div>
-
-													<a href="#small-dialog"
-														class="rate-review popup-with-zoom-anim"><i
-														class="sl sl-icon-envelope-open"></i> Send Message</a>
-												</div>
-											</div>
-										</div>
-										<div class="buttons-to-right">
-											<a th:href="@{/delete-order/{id}(id=${y.id})}" class="button gray reject"><i
-												class="sl sl-icon-close"></i> Delete</a> <a
-												th:href="@{/dashboard-invoice/{id}(id=${y.id})}"
-												class="button gray approve"><i class="im im-icon-Coin"></i>
-												View Invoice</a>
-										</div>
-									</li>
-								</th:block>
+								<li th:text="${y.user.user_Name}"></li>
+								<li th:text="${y.user.email}"></li>
+								<li th:text="${y.user.phone_Number}"></li>
 							</ul>
 						</div>
 					</div>
+					<div class="buttons">
+						<a th:href="@{/delete-order/{id}(id=${y.id})}" class="btn btn-outline-danger"><i class="fas fa-trash"></i> Delete</a>
+						<a th:href="@{/dashboard-invoice/{id}(id=${y.id})}" class="btn btn-outline-primary"><i class="fas fa-file-invoice"></i> View Invoice</a>
+						<button class="btn btn-outline-success" data-bs-toggle="modal" th:attr="data-bs-target='#sendMessageModal' + ${y.id}">
+							<i class="fas fa-envelope"></i> Send Message
+						</button>
+					</div>
+				</div>
 
-					<!-- Pagination -->
-					<div class="clearfix"></div>
-					<div class="row">
-						<div class="col-md-12">
-							<!-- Pagination -->
-							<div class="pagination-container margin-top-20 margin-bottom-40">
-								<nav class="pagination">
-									<ul>
-										<li><a th:if="${pageOrder.number} > 0"
-											th:href="@{/dashboard-orders/{page}(page=${pageOrder.number - 1})}"><i
-												class="sl sl-icon-arrow-left"></i></a></li>
-										<li><a
-											th:href="@{/dashboard-orders/{page}(page=${pageOrder.number})}"
-											class="current-page" th:text="${pageOrder.number+1}"></a></li>
-										<li><a
-											th:if="${pageOrder.number} < ${pageOrder.totalPages - 1}"
-											th:href="@{/dashboard-orders/{page}(page=${pageOrder.number + 1})}"><i
-												class="sl sl-icon-arrow-right"></i></a></li>
-									</ul>
-								</nav>
+				<!-- Send Message Modal -->
+				<div class="modal fade" th:id="'sendMessageModal' + ${y.id}" tabindex="-1" aria-labelledby="sendMessageLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="sendMessageLabel">Send Message</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<form action="/send-message" method="post">
+									<div class="mb-3">
+										<textarea name="message" class="form-control" rows="4" th:placeholder="'Your Message to ' + ${y.user.user_Name}"></textarea>
+									</div>
+									<input type="hidden" name="email" th:value="${y.user.email}" />
+									<button type="submit" class="btn btn-primary w-100">Send</button>
+								</form>
 							</div>
 						</div>
 					</div>
-					<!-- Pagination / End -->
-
 				</div>
-
-			</div>
-			<!-- Content / End -->
-
-
+			</th:block>
 		</div>
-		<!-- Dashboard / End -->
 
-
+		<!-- Pagination -->
+		<div class="pagination-container">
+			<nav class="pagination">
+				<ul>
+					<li th:if="${pageOrder.number} > 0">
+						<a th:href="@{/dashboard-orders/{page}(page=${pageOrder.number - 1})}"><i class="fas fa-arrow-left"></i></a>
+					</li>
+					<li>
+						<a th:href="@{/dashboard-orders/{page}(page=${pageOrder.number})}" class="current-page" th:text="${pageOrder.number + 1}"></a>
+					</li>
+					<li th:if="${pageOrder.number} < ${pageOrder.totalPages - 1}">
+						<a th:href="@{/dashboard-orders/{page}(page=${pageOrder.number + 1})}"><i class="fas fa-arrow-right"></i></a>
+					</li>
+				</ul>
+			</nav>
+		</div>
 	</div>
-	<!-- Wrapper / End -->
+</div>
 
+<!-- JS for menu toggle -->
+<script>
+	function toggleMenu() {
+		document.getElementById('sidebarMenu').classList.toggle('show');
+		document.getElementById('menuOverlay').classList.toggle('show');
+	}
+</script>
 
-	<!-- Scripts
-================================================== -->
-	<script type="text/javascript" src="/scripts/jquery-3.6.0.min.js"></script>
-	<script type="text/javascript"
-		src="/scripts/jquery-migrate-3.3.2.min.js"></script>
-	<script type="text/javascript" src="/scripts/mmenu.min.js"></script>
-	<script type="text/javascript" src="/scripts/chosen.min.js"></script>
-	<script type="text/javascript" src="/scripts/slick.min.js"></script>
-	<script type="text/javascript" src="/scripts/rangeslider.min.js"></script>
-	<script type="text/javascript" src="/scripts/magnific-popup.min.js"></script>
-	<script type="text/javascript" src="/scripts/waypoints.min.js"></script>
-	<script type="text/javascript" src="/scripts/counterup.min.js"></script>
-	<script type="text/javascript" src="/scripts/jquery-ui.min.js"></script>
-	<script type="text/javascript" src="/scripts/tooltips.min.js"></script>
-	<script type="text/javascript" src="/scripts/custom.js"></script>
-
-	<!-- Date Range Picker - docs: http://www.daterangepicker.com/ -->
-	<script src="/scripts/moment.min.js"></script>
-	<script src="/scripts/daterangepicker.js"></script>
-
-	<script>
-		$(function() {
-
-			var start = moment().subtract(29, 'days');
-			var end = moment();
-
-			function cb(start, end) {
-				$('#booking-date-range span').html(
-						start.format('MMMM D, YYYY') + ' - '
-								+ end.format('MMMM D, YYYY'));
-			}
-			cb(start, end);
-			$('#booking-date-range').daterangepicker(
-					{
-						"opens" : "left",
-						"autoUpdateInput" : false,
-						"alwaysShowCalendars" : true,
-						startDate : start,
-						endDate : end,
-						ranges : {
-							'Today' : [ moment(), moment() ],
-							'Yesterday' : [ moment().subtract(1, 'days'),
-									moment().subtract(1, 'days') ],
-							'Last 7 Days' : [ moment().subtract(6, 'days'),
-									moment() ],
-							'Last 30 Days' : [ moment().subtract(29, 'days'),
-									moment() ],
-							'This Month' : [ moment().startOf('month'),
-									moment().endOf('month') ],
-							'Last Month' : [
-									moment().subtract(1, 'month').startOf(
-											'month'),
-									moment().subtract(1, 'month')
-											.endOf('month') ]
-						}
-					}, cb);
-
-			cb(start, end);
-
-		});
-
-		// Calendar animation and visual settings
-		$('#booking-date-range')
-				.on(
-						'show.daterangepicker',
-						function(ev, picker) {
-							$('.daterangepicker')
-									.addClass(
-											'calendar-visible calendar-animated bordered-style');
-							$('.daterangepicker')
-									.removeClass('calendar-hidden');
-						});
-		$('#booking-date-range').on('hide.daterangepicker',
-				function(ev, picker) {
-					$('.daterangepicker').removeClass('calendar-visible');
-					$('.daterangepicker').addClass('calendar-hidden');
-				});
-	</script>
-
-
+<!-- Bootstrap Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
