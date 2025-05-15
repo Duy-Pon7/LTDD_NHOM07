@@ -77,7 +77,7 @@ public class UserController {
 		if (user != null) {
 			int code = (int) Math.floor(((Math.random() * 899999) + 100000));
 			Mail mail = new Mail();
-			mail.setMailFrom("haovo1512@gmail.com");
+			mail.setMailFrom("phanduykiet29@gmail.com");
 			mail.setMailTo(user.getEmail());
 			mail.setMailSubject("For got Password");
 			mail.setMailContent("Your code is: " + code);

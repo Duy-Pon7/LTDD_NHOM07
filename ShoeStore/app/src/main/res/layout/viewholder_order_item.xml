@@ -2,33 +2,41 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="345dp"
-    android:layout_height="120dp"
-    android:layout_marginBottom="8dp">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginBottom="8dp"
+    android:background="@drawable/rounded_white_background"
+    android:elevation="4dp"
+    android:padding="12dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout9"
         android:layout_width="100dp"
-        android:layout_height="match_parent"
+        android:layout_height="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/ivProductImage"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:background="@drawable/rounded_image_background"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/avartar_male_fashion" />
+            app:srcCompat="@drawable/img" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:background="#ecebe6"
+        android:layout_height="wrap_content"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/constraintLayout9"
@@ -36,13 +44,16 @@
 
         <TextView
             android:id="@+id/tvProductName"
-            android:layout_width="220dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="Pullover"
-            android:textColor="#222222"
+            android:textColor="#212121"
+            android:textSize="16sp"
             android:textStyle="bold"
+            android:ellipsize="end"
+            android:maxLines="2"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -52,7 +63,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Units:"
-            app:layout_constraintStart_toStartOf="@+id/tvProductName"
+            android:textColor="#616161"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvProductName" />
 
         <TextView
@@ -61,7 +74,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="2"
-            android:textColor="#222222"
+            android:textColor="#424242"
+            android:textSize="14sp"
+            android:background="@drawable/rounded_count_background"
+            android:paddingStart="6dp"
+            android:paddingEnd="6dp"
             app:layout_constraintBottom_toBottomOf="@+id/textView28"
             app:layout_constraintStart_toEndOf="@+id/textView28"
             app:layout_constraintTop_toTopOf="@+id/textView28" />
@@ -72,19 +89,21 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:text="Price:"
+            android:textColor="#616161"
+            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@+id/textView28"
             app:layout_constraintEnd_toStartOf="@+id/tvPrice"
-            app:layout_constraintTop_toTopOf="@+id/textView28"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toTopOf="@+id/textView28" />
 
         <TextView
             android:id="@+id/tvPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="500,000"
-            android:textColor="#222222"
+            android:textColor="#424242"
+            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@+id/textView33"
-            app:layout_constraintEnd_toEndOf="@+id/tvProductName"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView33" />
 
         <TextView
@@ -93,6 +112,9 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:text="Total:"
+            android:textColor="#616161"
+            android:textSize="14sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/tvTotalPrice"
             app:layout_constraintEnd_toStartOf="@+id/tvTotalPrice"
             app:layout_constraintTop_toTopOf="@+id/tvTotalPrice" />
@@ -104,9 +126,11 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:text="1,000,000"
-            android:textColor="#222222"
+            android:textColor="#D81B60"
+            android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/tvPrice"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvPrice" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

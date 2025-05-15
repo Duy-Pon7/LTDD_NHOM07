@@ -164,9 +164,9 @@ public class AdminController {
 		System.out.println(message);
 		System.out.println(email);
 		Mail mail = new Mail();
-		mail.setMailFrom("haovo1512@gmail.com");
+		mail.setMailFrom("phanduykiet29@gmail.com");
 		mail.setMailTo(email);
-		mail.setMailSubject("This is message from Male fashion.");
+		mail.setMailSubject("This is message from Shoe Store.");
 		mail.setMailContent(message);
 		mailService.sendEmail(mail);
 		return "redirect:" + referer;

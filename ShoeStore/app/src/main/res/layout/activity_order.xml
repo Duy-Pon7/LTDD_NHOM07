@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="@drawable/gradient_background">
 
+    <!-- Header -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout8"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:background="#f6f6f6"
+        android:background="@drawable/gradient_background"
+        android:elevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -21,8 +23,8 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/metrophobic"
             android:text="My Orders"
-            android:textColor="#222222"
-            android:textSize="30sp"
+            android:textColor="#212121"
+            android:textSize="28sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -30,11 +32,12 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!-- Order Content -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clOrder"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="#ecebe6"
+        android:background="#F5F7FA"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@id/constrainLayout"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,40 +47,37 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:orientation="vertical">
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabLayout"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                android:layout_height="48dp"
+                android:background="#FFFFFF"
                 app:tabGravity="fill"
-                android:background="#f6f6f6"
                 app:tabIndicator="@drawable/tab_selected_background"
                 app:tabIndicatorAnimationMode="elastic"
-                app:tabIndicatorGravity="stretch"
+                app:tabIndicatorColor="#1976D2"
+                app:tabIndicatorHeight="4dp"
                 app:tabMode="fixed"
-                app:tabSelectedTextColor="#222222"
+                app:tabSelectedTextColor="#1976D2"
+                app:tabTextColor="#616161"
                 tools:ignore="SpeakableTextPresentCheck" />
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewPager2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@drawable/gradient_background"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tabLayout"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
         </LinearLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -137,7 +137,7 @@
         android:id="@+id/clEmptyOrder"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="#ecebe6"
+        android:background="#F5F7FA"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/constrainLayout"
         app:layout_constraintEnd_toEndOf="parent"
@@ -146,13 +146,13 @@
 
         <ImageView
             android:id="@+id/imageView15"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="130dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.4"
             app:srcCompat="@drawable/empty_order" />
 
         <TextView
@@ -160,12 +160,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Your order is empty"
-            android:textColor="#222222"
+            android:text="No Orders Yet"
+            android:textColor="#212121"
             android:textSize="24sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView15"
-            tools:textStyle="bold" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView15" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

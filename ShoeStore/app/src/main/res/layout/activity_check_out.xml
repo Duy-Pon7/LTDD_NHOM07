@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="@drawable/gradient_background">
 
+    <!-- Success Screen -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/placeOrderSuccess"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"
+        android:background="#F5F7FA"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -17,23 +20,22 @@
 
         <ImageView
             android:id="@+id/imageView3"
-            android:layout_width="wrap_content"
-            android:layout_height="213dp"
-            android:layout_marginTop="204dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="150dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/place_order_success" />
+            app:srcCompat="@drawable/success" />
 
         <TextView
             android:id="@+id/textView15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Success!"
-            android:textColor="#222222"
-            android:textSize="30sp"
+            android:text="Order Placed!"
+            android:textColor="#0099FF"
+            android:textSize="32sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -44,31 +46,35 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Your order will be delivered soon.\n Thank you for choosing our app!"
-            android:textColor="#222222"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="@+id/textView15"
-            app:layout_constraintStart_toStartOf="@+id/textView15"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:gravity="center"
+            android:text="Successful purchase!\nThank you for shopping with us!"
+            android:textColor="#424242"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnContinueShopping"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="100dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/button_background"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="48dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/rounded_button_gradient"
             android:text="Continue Shopping"
             android:textAllCaps="false"
-            android:textColor="#ffffff"
-            android:textSize="20sp"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView16" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!-- Checkout Screen -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/placeOrder"
         android:layout_width="match_parent"
@@ -79,46 +85,48 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-
+        <!-- Header -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:elevation="3dp"
+            android:layout_height="64dp"
+            android:background="@drawable/gradient_background"
+            android:elevation="4dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/ivBack"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginStart="16dp"
+                android:padding="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/back" />
+                app:srcCompat="@drawable/back"
+                app:tint="#424242" />
 
             <TextView
                 android:id="@+id/textView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Checkout"
-                android:textColor="#686767"
-                android:textSize="20sp"
+                android:textColor="#212121"
+                android:textSize="22sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/ivBack"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/ivBack"
-                tools:textColor="#222222" />
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <!-- Scrollable Content -->
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="#f9f9f9"
+            android:background="#F5F7FA"
             app:layout_constraintBottom_toTopOf="@id/constraintLayout1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -126,18 +134,19 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_height="wrap_content"
+                android:paddingBottom="16dp">
 
+                <!-- Shipping Address Section -->
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintLayout4"
                     android:layout_width="match_parent"
-                    android:layout_height="145dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
+                    android:background="@drawable/rounded_white_background"
+                    android:padding="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -146,8 +155,9 @@
                         android:id="@+id/textView12"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Shipping address"
-                        android:textSize="18sp"
+                        android:text="Shipping Address"
+                        android:textColor="#212121"
+                        android:textSize="20sp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -155,15 +165,9 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/constraintLayoutAddress"
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_marginStart="3dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="3dp"
-                        android:layout_marginBottom="3dp"
-                        android:background="@drawable/address_background"
-                        android:elevation="2dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
                         android:visibility="visible"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView12">
@@ -172,20 +176,33 @@
                             android:id="@+id/tvUserName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="8dp"
                             android:text="Võ Hoàn Hảo"
+                            android:textColor="#212121"
+                            android:textSize="16sp"
                             android:textStyle="bold"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
+                            android:id="@+id/tvPhoneNumber"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="(0799197703)"
+                            android:textColor="#616161"
+                            android:textSize="14sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/tvUserName"
+                            app:layout_constraintStart_toEndOf="@+id/tvUserName"
+                            app:layout_constraintTop_toTopOf="@+id/tvUserName" />
+
+                        <TextView
                             android:id="@+id/tvChangeAddress"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="16dp"
+                            android:layout_marginEnd="8dp"
                             android:text="Change"
-                            android:textColor="#DB3022"
+                            android:textColor="#1976D2"
+                            android:textSize="14sp"
                             android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="@+id/tvUserName"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -193,12 +210,13 @@
 
                         <TextView
                             android:id="@+id/tvAddress"
-                            android:layout_width="match_parent"
-                            android:layout_height="41dp"
-                            android:layout_marginStart="16dp"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:layout_marginEnd="16dp"
+                            android:layout_marginEnd="8dp"
                             android:text="498 Lê Văn Việt, Phường Tăng Nhơn Phú A, Thành Phố Thủ Đức, Thành Phố Hồ Chí Minh"
+                            android:textColor="#424242"
+                            android:textSize="14sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/tvUserName" />
@@ -207,71 +225,58 @@
                             android:id="@+id/textView18"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
                             android:text="Việt Nam"
-                            app:layout_constraintStart_toStartOf="@+id/tvAddress"
+                            android:textColor="#616161"
+                            android:textSize="14sp"
+                            app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/tvAddress" />
-
-                        <TextView
-                            android:id="@+id/tvPhoneNumber"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:text="(0799197703)"
-                            app:layout_constraintBottom_toBottomOf="@+id/tvUserName"
-                            app:layout_constraintStart_toEndOf="@+id/tvUserName"
-                            app:layout_constraintTop_toTopOf="@+id/tvUserName" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/constraintLayoutNotAddress"
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_marginStart="3dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="3dp"
-                        android:layout_marginBottom="3dp"
-                        android:background="@drawable/address_background"
-                        android:elevation="2dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
                         android:visibility="gone"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView12">
 
-
                         <ImageView
                             android:id="@+id/imageView7"
-                            android:layout_width="wrap_content"
-                            android:layout_height="100dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.0"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/address_is_empty"
-                            tools:ignore="MissingConstraints" />
+                            app:srcCompat="@drawable/address_is_empty" />
 
                         <TextView
                             android:id="@+id/tvAddAddress"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:layout_marginEnd="8dp"
-                            android:text="Add address"
-                            android:textColor="#DB3022"
+                            android:text="Add Address"
+                            android:textColor="#1976D2"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/imageView7" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+                <!-- Product Items Section -->
                 <TextView
                     android:id="@+id/textView20"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:text="Product Item"
-                    android:textSize="18sp"
+                    android:layout_marginTop="24dp"
+                    android:text="Order Items"
+                    android:textColor="#212121"
+                    android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/constraintLayout4" />
@@ -280,86 +285,103 @@
                     android:id="@+id/view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView20" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
+        <!-- Bottom Payment Section -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout1"
             android:layout_width="match_parent"
-            android:layout_height="170dp"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:elevation="4dp"
+            android:padding="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
+            <TextView
+                android:id="@+id/textViewPayment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Payment Method"
+                android:textColor="#212121"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <RadioGroup
                 android:id="@+id/radioGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="58dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <RadioButton
-                    android:id="@+id/rbPayOnDelivery"
-                    android:layout_width="match_parent"
-                    android:layout_height="25dp"
-                    tools:ignore="TouchTargetSizeCheck" />
-
-                <RadioButton
-                    android:id="@+id/rbPayWithZaloPay"
-                    android:layout_width="match_parent"
-                    android:layout_height="25dp"
-                    android:layout_marginTop="8dp"
-                    tools:ignore="TouchTargetSizeCheck" />
-            </RadioGroup>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="0dp"
-                android:layout_height="58dp"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintBottom_toBottomOf="@+id/radioGroup"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/radioGroup"
-                app:layout_constraintTop_toTopOf="@+id/radioGroup">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewPayment">
 
-                <TextView
-                    android:id="@+id/tvPayOnDelivery"
-                    android:layout_width="wrap_content"
-                    android:layout_height="25dp"
-                    android:gravity="center"
-                    android:text="Pay on Delivery"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_white_background"
+                    android:orientation="horizontal"
+                    android:padding="12dp">
 
-                <TextView
-                    android:id="@+id/tvPayWithZaloPay"
-                    android:layout_width="wrap_content"
-                    android:layout_height="25dp"
+                    <RadioButton
+                        android:id="@+id/rbPayOnDelivery"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp" />
+
+                    <TextView
+                        android:id="@+id/tvPayOnDelivery"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pay on Delivery"
+                        android:textColor="#424242"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:gravity="center"
-                    android:text="Pay With ZaloPay"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvPayOnDelivery" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:background="@drawable/rounded_white_background"
+                    android:orientation="horizontal"
+                    android:padding="12dp">
+
+                    <RadioButton
+                        android:id="@+id/rbPayWithZaloPay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp" />
+
+                    <TextView
+                        android:id="@+id/tvPayWithZaloPay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pay with ZaloPay"
+                        android:textColor="#424242"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </RadioGroup>
 
             <TextView
                 android:id="@+id/textView22"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:text="Total Price"
-                android:textSize="18sp"
+                android:textColor="#212121"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
@@ -368,33 +390,29 @@
                 android:id="@+id/tvTotalPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
                 android:text="2,000,000"
-                android:textSize="18sp"
+                android:textColor="#D81B60"
+                android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/textView22"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textView22" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnPlaceOrder"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_height="56dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="24dp"
-                android:background="@drawable/button_background"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/rounded_button_gradient"
                 android:text="Place Order"
                 android:textAllCaps="false"
-                android:textColor="#ffffff"
-                android:textSize="20sp"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView22"
-                tools:textStyle="bold" />
-
+                app:layout_constraintTop_toBottomOf="@+id/textView22" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

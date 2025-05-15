@@ -68,5 +68,5 @@ dependencies {
     implementation "com.github.fraggjkee:sms-confirmation-view:1.7.1"
 
     // Dependency for Google Sign-In
-    implementation 'com.google.android.gms:play-services-auth:20.5.0'
+    implementation 'com.google.android.gms:play-services-auth:21.2.0'
 }

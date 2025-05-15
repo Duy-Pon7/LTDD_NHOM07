@@ -27,10 +27,10 @@ public interface ProductRepository extends JpaRepository<Product,Integer>{
 
 	Product findById(int id);
 
-	@Query(value = "SELECT * FROM fashionstore.product WHERE product_name LIKE CONCAT('%', ?1, '%') AND category_id = ?2", nativeQuery = true)
+	@Query(value = "SELECT * FROM shoestore.product WHERE product_name LIKE CONCAT('%', ?1, '%') AND category_id = ?2", nativeQuery = true)
 	Page<Product> findByProduct_NameAndCategory_idContaining(String name, int category_id, Pageable pageable);
 
-	@Query(value="select * from `fashionstore`.product where `fashionstore`.product.product_name like CONCAT('%', ?1, '%')",nativeQuery = true)
+	@Query(value="select * from `shoestore`.product where `shoestore`.product.product_name like CONCAT('%', ?1, '%')",nativeQuery = true)
 	Page<Product> findByProduct_NameContaining(String name, Pageable pageable);
 
 	@Query(value="select * from product p where p.category_id = ?1 ORDER BY p.sold DESC LIMIT 4;",nativeQuery = true)
