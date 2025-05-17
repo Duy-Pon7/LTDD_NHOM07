@@ -8,9 +8,9 @@
 
 ## 📱 Giao diện ứng dụng
 
-![image](https://github.com/user-attachments/assets/4d086f07-4236-45e7-9151-c0b156e1658f)
-![image](https://github.com/user-attachments/assets/2a068288-831d-4bfa-92da-828a35306497)
-![image](https://github.com/user-attachments/assets/5dc815c3-fabd-4b84-a586-e1ae28e34c4c)
+![image](https://github.com/user-attachments/assets/29683732-99c2-49e0-ab4d-b7773ed9089d)
+![image](https://github.com/user-attachments/assets/1a5d9322-20b5-46b8-9acf-43ca89e33e70)
+![image](https://github.com/user-attachments/assets/bf2a5a7c-7883-4f24-8783-659719f80cb6)
 
 ---
 
